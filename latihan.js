@@ -7,21 +7,9 @@ $('.search-btn').on('click', function() {
             console.info(search);
             let kotak = '';
             search.forEach(s => {
-                kotak +=
-                    `<div class="col-md-4 my-5">
-                <div class="card">
-                <img src="${s.Poster}" class="card-img-top" alt="">
-                <div class="card-body">
-                    <h5 class="card-title">${s.Title}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">${s.Year}</h6>
-                    <a href="#" class="btn btn-primary modal-detail-btn">Show Details</a>
-                </div> 
-                </div> 
-                </div>`
+                kotak += showcards(s);
             });
             $('.filmku ').html(kotak)
-
-
 
             // ketika show detail di klik
             $('.modal-detail-btn').on('click', function() {
@@ -44,6 +32,21 @@ $('.search-btn').on('click', function() {
     });
 
 });
+
+function showcards(m) {
+    return `<div class="col-md-4 my-5">
+                    <div class="card">
+                        <img src="${m.Poster}" class=" card-img-top " alt=" ">
+                        <div class="card-body ">
+                            <h5 class="card-title ">${ m.Title }
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary ">${ m.Year }
+                            </h6>
+                            <a href="# " class="btn btn-primary modal-detail-btn " data-bs-toggle="modal" data-bs-target="#movieDetail" data-imdbid="${m.imdbID}"> Show Details</a>
+                        </div>
+                    </div>
+                </div>`
+}
 
 function detailMovie(m) {
     return `<div class="container-fluid">
