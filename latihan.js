@@ -22,33 +22,21 @@ $('.search-btn').on('click', function() {
             $('.filmku ').html(kotak)
 
 
-            // // 
-            // $('.modal-detail-btn').on('click', function() {
-            //     // console.info($(this).data('imdbid'))
-            //     $.ajax({
-            //         url: 'http://www.omdbapi.com/?apikey=f85d757b&i=' + $(this).data(imdbid),
-            //         success: m => {
-            //             const movieDetail = ` <div class="container-fluid">
-            //             <div class="col-md-3">
-            //                 <img src="" alt="">
-            //             </div>
-            //             <div class="col-md">
-            //                 <ul class="list-group">
-            //                     <li class="list-group-item">An item</li>
-            //                     <li class="list-group-item">A second item</li>
-            //                     <li class="list-group-item">A third item</li>
-            //                     <li class="list-group-item">A fourth item</li>
-            //                     <li class="list-group-item">And a fifth one</li>
-            //                 </ul>
-            //             </div>
-            //         </div>`
-            //             $('modal-body').html(movieDetail);
-            //         },
-            //         error: (e) => {
-            //             console.info(e.responseText);
-            //         }
-            //     })
-            // })
+
+            // ketika show detail di klik
+            $('.modal-detail-btn').on('click', function() {
+                // console.info($(this).data('imdbid'))
+                $.ajax({
+                    url: 'http://www.omdbapi.com/?apikey=f85d757b&i=' + $(this).data("imdbid"),
+                    success: m => {
+                        const movieDetail = detailMovie(m)
+                        $('.modal-body').html(movieDetail);
+                    },
+                    error: (e) => {
+                        console.info(e.responseText);
+                    }
+                });
+            });
         },
         error: (e) => {
             console.info(e.responseText);
@@ -56,3 +44,22 @@ $('.search-btn').on('click', function() {
     });
 
 });
+
+function detailMovie(m) {
+    return `<div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="${m.Poster}" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-md">
+                        <ul class="list-group">
+                            <li class="list-group-item"><h2>${m.Title} (${m.Year})</h2></li>
+                            <li class="list-group-item"><strong>Released :</strong>${m.Released}</li>
+                            <li class="list-group-item"><strong>Director :</strong>${m.Director}</li>
+                            <li class="list-group-item"><strong>Languange :</strong>${m.Language}</li>
+                            <li class="list-group-item"><p>Plot : </p>${m.Plot}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>`
+}
